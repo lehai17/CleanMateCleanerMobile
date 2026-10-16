@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "CleanMate Cleaner", "slug": "cleanmate-cleaner", "scheme": "cleanmate-cleaner",
-    "version": "1.0.0", "orientation": "portrait", "userInterfaceStyle": "light", "newArchEnabled": true,
+    "version": "1.0.0", "orientation": "portrait", "userInterfaceStyle": "automatic", "newArchEnabled": true,
     "ios": { "supportsTablet": true, "bundleIdentifier": "com.cleanmate.cleaner" },
     "android": { "package": "com.cleanmate.cleaner", "edgeToEdgeEnabled": true },
     "plugins": ["expo-secure-store"]
