@@ -22,6 +22,8 @@ running it does not require the customer mobile/web repositories.
   assigned job in the Jobs tab, including completed work, with an option to view all jobs.
 - Call the assigned customer and open a job address in Maps; unavailable apps show an error.
 - Server enforces booking ownership, schedule overlap and one active job.
+- Profile → Hỗ trợ đơn hàng opens reports for your bookings. Submit a problem,
+  track its status and read the latest staff response; notifications open Support.
 
 Customers pay cash directly to the cleaner after work. Displayed cash totals are
 self-declarations, not app balances or amounts the platform owes the cleaner.
@@ -57,7 +59,14 @@ work. Existing approved cleaner accounts can sign in directly.
 ## Verification
 
 Verified 16 October 2026: 7 domain tests and the Android bundle export passed
-(1,310 modules). A physical-device UI test has not been performed.
+(1,315 modules). A physical-device UI test has not been performed.
+
+Profile → Đổi mật khẩu changes the current password and signs out after success.
+The same screen offers confirmed logout from all CleanMate sessions without
+changing the password, including Google-only accounts.
+The backend invalidates every previous JWT; a protected request with a revoked
+session also signs the app out. This flow does not implement forgotten-password
+email recovery. See ../backend/PROJECT_STATUS.md for the remaining work.
 
 ```powershell
 npm test
@@ -80,7 +89,7 @@ Suggested GitHub repository: `CleanMateCleanerMobile`. Create an empty repositor
 and attach its URL as this folder's `origin`. Commit text:
 
 ```text
-Add cleaner job filters, contact shortcuts, and notification job navigation
+Add password changes and session revocation controls
 ```
 
 If Windows reports dubious ownership, run:
