@@ -59,7 +59,7 @@ work. Existing approved cleaner accounts can sign in directly.
 ## Verification
 
 Verified 16 October 2026: 7 domain tests and the Android bundle export passed
-(1,315 modules). A physical-device UI test has not been performed.
+(1,316 modules). A physical-device UI test has not been performed.
 
 Profile → Đổi mật khẩu changes the current password and signs out after success.
 The same screen offers confirmed logout from all CleanMate sessions without
@@ -85,6 +85,12 @@ does not test this native app's UI. Generated bundles are ignored by Git.
 
 ## Separate Git
 
+Support → Xem trao đổi shows private message history and supports follow-up
+messages, retry with the same request ID and loading earlier messages. A follow-up
+reopens a resolved report. Staff replies are available through the existing inbox;
+refresh a thread explicitly to reload its messages. No background push is added.
+See ../backend/SUPPORT_CONVERSATIONS.md. Native UI interaction needs a device test.
+
 Authentication safeguards: login/signup display the API's throttling message and
 retry time. New-password inputs cap characters; the backend enforces 72 UTF-8
 bytes. Existing login passwords remain supported up to 128 characters.
@@ -94,7 +100,7 @@ Suggested GitHub repository: `CleanMateCleanerMobile`. Create an empty repositor
 and attach its URL as this folder's `origin`. Commit text:
 
 ```text
-Add password changes and session revocation controls
+Add private support conversations and reply history
 ```
 
 If Windows reports dubious ownership, run:
