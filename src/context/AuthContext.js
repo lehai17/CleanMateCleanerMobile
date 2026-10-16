@@ -1,3 +1,4 @@
+import { useUiPreferences as useCleanMateUi } from './../ui/Preferences';
 import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
 import * as SecureStore from "expo-secure-store";
 import { api, TOKEN_KEY } from "../api/axios";
@@ -5,6 +6,7 @@ import { meApi } from "../api/auth";
 
 const Ctx = createContext(undefined);
 export function AuthProvider({ children }) {
+  useCleanMateUi();
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);

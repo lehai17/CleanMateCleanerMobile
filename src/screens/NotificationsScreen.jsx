@@ -1,11 +1,13 @@
+import { Raw, useUiPreferences as useCleanMateUi } from './../ui/Preferences';
 import { useCallback, useRef, useState } from "react";
-import { Alert, Button, FlatList, Text, View } from "react-native";
+import { Alert, Button, FlatList, Text, View } from './../ui/Preferences';
 import { useFocusEffect } from "@react-navigation/native";
 import { getNotifications, readNotification, readAllNotifications } from "../api/notifications";
 import { useNotifications } from "../context/NotificationContext";
 import { useAuth } from "../context/AuthContext";
 
 export default function NotificationsScreen({ navigation }) {
+  useCleanMateUi();
   const [items, setItems] = useState([]);
   const [unreadCount, setUnreadCount] = useState(null);
   const [cursor, setCursor] = useState(null);
@@ -48,7 +50,7 @@ export default function NotificationsScreen({ navigation }) {
       ListFooterComponent={cursor ? <Button title="Xem thêm" disabled={loading || busy} onPress={() => load(cursor)} /> : null}
       renderItem={({ item }) => <View style={{ marginVertical: 6, padding: 12, borderRadius: 12, backgroundColor: item.readAt ? "#f3f4f6" : "#ecfdf5" }}>
         <Text style={{ fontWeight: "700" }}>{item.title}</Text>
-        <Text>{item.message}</Text>
+        <Text>{<Raw>{item.message}</Raw>}</Text>
         <Text>{new Date(item.createdAt).toLocaleString("vi-VN")} · {item.readAt ? "Đã đọc" : "Chưa đọc"}</Text>
         <Button title={item.target === "Support" ? "Xem hỗ trợ" : item.target === "Profile" ? "Xem hồ sơ" : `Xem đơn CM${item.bookingId}`} onPress={() => {
           if (item.target === "Support") {navigation.navigate('Support');return;}

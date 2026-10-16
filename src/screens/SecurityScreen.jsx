@@ -1,9 +1,12 @@
+import { useUiPreferences as useCleanMateUi } from './../ui/Preferences';
 import EmailVerification from '../components/EmailVerification';
 import {useRef,useState} from 'react';
-import {Alert,Button,KeyboardAvoidingView,Platform,ScrollView,Text,TextInput} from 'react-native';
+import { Platform } from 'react-native';
+import { Alert, Button, KeyboardAvoidingView, ScrollView, Text, TextInput } from './../ui/Preferences';
 import {useAuth} from '../context/AuthContext';
 import {api} from '../api/axios';
 export default function SecurityScreen() {
+  useCleanMateUi();
   const {logout}=useAuth();const [form,setForm]=useState({currentPassword:'',newPassword:'',confirmation:''}),[busy,setBusy]=useState(false),[error,setError]=useState('');const pending=useRef(false);
   const revoke=async()=>{
     if(pending.current)return;pending.current=true;setBusy(true);setError('');

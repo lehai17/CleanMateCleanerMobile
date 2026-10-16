@@ -1,11 +1,14 @@
+import { useUiPreferences as useCleanMateUi } from './../ui/Preferences';
 import RecoveryScreen from './RecoveryScreen';
 import {useState} from 'react';
-import {KeyboardAvoidingView,Platform,ScrollView,Text,TextInput,Button,View} from 'react-native';
+import { Platform } from 'react-native';
+import { KeyboardAvoidingView, ScrollView, Text, TextInput, Button, View } from './../ui/Preferences';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {loginApi,registerApi} from '../api/auth';
 import {useAuth} from '../context/AuthContext';
 import {eligible} from '../domain';
 export default function AuthScreen() {
+  useCleanMateUi();
   const {login} = useAuth(); const inset = useSafeAreaInsets(); const [recover,setRecover]=useState(false);
   const [register,setRegister] = useState(false), [email,setEmail] = useState(''), [password,setPassword] = useState(''), [name,setName] = useState(''), [phone,setPhone] = useState(''), [busy,setBusy] = useState(false), [error,setError] = useState('');
   if(recover)return <RecoveryScreen onBack={()=>setRecover(false)}/>;

@@ -1,7 +1,9 @@
-import {Button,ScrollView,Text,TextInput,View} from 'react-native';
+import { useUiPreferences as useCleanMateUi } from './../ui/Preferences';
+import { Button, ScrollView, Text, TextInput, View } from './../ui/Preferences';
 import {validDay} from '../domain';
 const labels = {All:'Tất cả',Accepted:'Đã nhận',InProgress:'Đang làm',Completed:'Hoàn thành',Cancelled:'Đã hủy'};
 export default function JobFilters({value,onChange,statuses=[]}) {
+  useCleanMateUi();
   const input = {borderWidth:1,borderColor:'#cbd5e1',borderRadius:8,padding:10,backgroundColor:'white',marginTop:4,marginBottom:10};
   return <View style={{marginVertical:12}}>
     <Text>Tìm công việc</Text><TextInput accessibilityLabel="Tìm công việc" placeholder="Mã CM, khách hàng, địa chỉ" maxLength={100} value={value.search} onChangeText={search => onChange({...value,search})} style={input} />
