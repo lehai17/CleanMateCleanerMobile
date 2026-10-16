@@ -29,6 +29,7 @@ export default function ProfileScreen({navigation}) {
     <Text style={{fontSize:24,fontWeight:'700',color:'#065f46'}}>Hồ sơ cộng tác viên</Text><Text style={{marginVertical:12}}>{user.email}</Text><Text>Trạng thái: {status}</Text>
     {p?.reviewReason ? <Text style={{padding:12,color:'#9a3412'}}>{p.reviewReason}</Text> : null}
     <Button title="Tải lại trạng thái hồ sơ" onPress={refresh} disabled={busy} />
+    <Button title="Đổi mật khẩu" onPress={()=>navigation.navigate('Security')} />
     {message ? <Text accessibilityRole="alert" style={{marginVertical:12}}>{message}</Text> : null}
     {[['Họ tên','fullName',200],['Số điện thoại','phoneNumber',20],['Thành phố','city',200],['Địa chỉ','addressText',500],['Giới thiệu','bio',2000]].map(([label,key,max]) => <View key={key} style={{marginTop:16}}><Text>{label}</Text><TextInput accessibilityLabel={label} value={form[key] || ''} onChangeText={value => setForm(f => ({...f,[key]:value}))} editable={!busy && !pending} maxLength={max} multiline={key === 'bio'} keyboardType={key === 'phoneNumber' ? 'phone-pad' : 'default'} style={{backgroundColor:'white',borderWidth:1,borderColor:'#cbd5e1',borderRadius:12,padding:12,marginVertical:6}} /></View>)}
     <Button title={busy ? 'Đang xử lý...' : pending ? 'Đang chờ xét duyệt' : active ? 'Lưu hồ sơ' : p ? 'Gửi lại hồ sơ' : 'Gửi hồ sơ cleaner'} onPress={save} disabled={busy || pending} />

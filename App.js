@@ -12,6 +12,7 @@ import DashboardScreen from './src/screens/DashboardScreen';
 import FindJobScreen from './src/screens/FindJobScreen';
 import NotificationsScreen from './src/screens/NotificationsScreen';
 import SupportScreen from './src/screens/SupportScreen';
+import SecurityScreen from './src/screens/SecurityScreen';
 import CleanerJobList from './src/components/CleanerJobList';
 import { approved } from './src/domain';
 const Tabs = createBottomTabNavigator();
@@ -19,7 +20,7 @@ function Jobs({route,navigation}) { return <View style={{flex:1,padding:16}}><Cl
 function Calendar() { return <View style={{flex:1,padding:16}}><Text style={{marginBottom:12}}>Ca đã nhận / đang làm, sắp theo thời gian. Ngày theo giờ Việt Nam.</Text><CleanerJobList chronological /></View>; }
 function Workspace() {
   const {user} = useAuth(); const {unreadCount} = useNotifications();
-  const icons = {Dashboard:'home-outline',FindJob:'search-outline',Jobs:'briefcase-outline',Calendar:'calendar-outline',Notifications:'notifications-outline',CleanerProfile:'person-outline',Support:'help-circle-outline'};
+  const icons = {Dashboard:'home-outline',FindJob:'search-outline',Jobs:'briefcase-outline',Calendar:'calendar-outline',Notifications:'notifications-outline',CleanerProfile:'person-outline',Support:'help-circle-outline',Security:'lock-closed-outline'};
   return <Tabs.Navigator screenOptions={({route}) => ({headerStyle:{backgroundColor:'#065f46'},headerTintColor:'white',tabBarActiveTintColor:'#047857',tabBarIcon:({color,size}) => <Ionicons name={icons[route.name]} color={color} size={size} />})}>
     {approved(user) && <>
       <Tabs.Screen name="Dashboard" component={DashboardScreen} options={{title:'Tổng quan'}} />
@@ -29,6 +30,7 @@ function Workspace() {
     </>}
     <Tabs.Screen name="CleanerProfile" component={ProfileScreen} options={{title:'Hồ sơ'}} />
     <Tabs.Screen name="Support" component={SupportScreen} options={{title:'Hỗ trợ',tabBarItemStyle:{display:'none'}}} />
+    <Tabs.Screen name="Security" component={SecurityScreen} options={{title:'Đổi mật khẩu',tabBarItemStyle:{display:'none'}}} />
     <Tabs.Screen name="Notifications" component={NotificationsScreen} options={{title:'Thông báo',tabBarBadge:unreadCount > 0 ? unreadCount : undefined}} />
   </Tabs.Navigator>;
 }

@@ -59,7 +59,14 @@ work. Existing approved cleaner accounts can sign in directly.
 ## Verification
 
 Verified 16 October 2026: 7 domain tests and the Android bundle export passed
-(1,314 modules). A physical-device UI test has not been performed.
+(1,315 modules). A physical-device UI test has not been performed.
+
+Profile → Đổi mật khẩu changes the current password and signs out after success.
+The same screen offers confirmed logout from all CleanMate sessions without
+changing the password, including Google-only accounts.
+The backend invalidates every previous JWT; a protected request with a revoked
+session also signs the app out. This flow does not implement forgotten-password
+email recovery. See ../backend/PROJECT_STATUS.md for the remaining work.
 
 ```powershell
 npm test
@@ -82,7 +89,7 @@ Suggested GitHub repository: `CleanMateCleanerMobile`. Create an empty repositor
 and attach its URL as this folder's `origin`. Commit text:
 
 ```text
-Add cleaner job filters, contact shortcuts, and notification job navigation
+Add password changes and session revocation controls
 ```
 
 If Windows reports dubious ownership, run:
