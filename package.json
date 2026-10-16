@@ -4,11 +4,14 @@
   "main": "index.js",
   "scripts": {
     "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "android": "node scripts/run-native.cjs android production",
+    "ios": "node scripts/run-native.cjs ios production",
     "web": "expo start --web",
     "test": "node --test tests/*.test.cjs tests/*.test.mjs",
-    "export:android": "expo export --platform android --output-dir .test-export --max-workers 2"
+    "export:android": "expo export --platform android --output-dir .test-export --max-workers 2",
+    "check:native-config": "node scripts/check-native-config.cjs",
+    "android:validation": "node scripts/run-native.cjs android validation",
+    "ios:validation": "node scripts/run-native.cjs ios validation"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.2",
