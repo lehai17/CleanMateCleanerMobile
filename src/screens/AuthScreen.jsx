@@ -1,3 +1,4 @@
+import RecoveryScreen from './RecoveryScreen';
 import {useState} from 'react';
 import {KeyboardAvoidingView,Platform,ScrollView,Text,TextInput,Button,View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -5,8 +6,9 @@ import {loginApi,registerApi} from '../api/auth';
 import {useAuth} from '../context/AuthContext';
 import {eligible} from '../domain';
 export default function AuthScreen() {
-  const {login} = useAuth(); const inset = useSafeAreaInsets();
+  const {login} = useAuth(); const inset = useSafeAreaInsets(); const [recover,setRecover]=useState(false);
   const [register,setRegister] = useState(false), [email,setEmail] = useState(''), [password,setPassword] = useState(''), [name,setName] = useState(''), [phone,setPhone] = useState(''), [busy,setBusy] = useState(false), [error,setError] = useState('');
+  if(recover)return <RecoveryScreen onBack={()=>setRecover(false)}/>;
   const submit = async () => {
     if (busy) return;
     if (!email.trim() || !password || (register && !name.trim())) {setError('Vui lòng nhập đầy đủ thông tin.');return;}
@@ -28,6 +30,7 @@ export default function AuthScreen() {
     <Text>Mật khẩu</Text><TextInput accessibilityLabel="Mật khẩu" value={password} onChangeText={setPassword} secureTextEntry autoCapitalize="none" autoComplete={register ? 'new-password' : 'current-password'} style={input} maxLength={register ? 72 : 128} />
     {register && <Text style={{marginBottom:16}}>Mật khẩu từ 8 ký tự, tối đa 72 byte UTF-8. Ký tự có dấu có thể chiếm nhiều byte.</Text>}
     <Button color="#047857" title={busy ? 'Đang xử lý...' : register ? 'Gửi đăng ký' : 'Đăng nhập'} disabled={busy} onPress={submit} />
+    {!register&&<Button title="Quên mật khẩu?" disabled={busy} onPress={()=>setRecover(true)}/>}
     <View style={{height:16}} /><Button title={register ? 'Đã có tài khoản? Đăng nhập' : 'Đăng ký làm cleaner'} disabled={busy} onPress={() => {setRegister(!register);setError('');}} />
     <Text style={{marginTop:24,color:'#475569'}}>Hồ sơ cần được duyệt trước khi nhận việc. Khách trả tiền mặt trực tiếp sau ca.</Text>
   </ScrollView></KeyboardAvoidingView>;

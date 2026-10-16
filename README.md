@@ -65,8 +65,9 @@ Profile → Đổi mật khẩu changes the current password and signs out after
 The same screen offers confirmed logout from all CleanMate sessions without
 changing the password, including Google-only accounts.
 The backend invalidates every previous JWT; a protected request with a revoked
-session also signs the app out. This flow does not implement forgotten-password
-email recovery. See ../backend/PROJECT_STATUS.md for the remaining work.
+session also signs the app out. Quên mật khẩu now opens email-code recovery;
+the security screen also verifies email. Real delivery requires SMTP setup.
+See ../backend/ACCOUNT_RECOVERY.md for configuration and limitations.
 
 ```powershell
 npm test
