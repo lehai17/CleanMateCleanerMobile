@@ -25,7 +25,8 @@ export default function AuthScreen() {
     {error ? <Text accessibilityRole="alert" style={{color:'#b91c1c',marginBottom:16}}>{error}</Text> : null}
     {register && <><Text>Họ tên</Text><TextInput accessibilityLabel="Họ tên" value={name} onChangeText={setName} style={input} maxLength={200} /><Text>Số điện thoại</Text><TextInput accessibilityLabel="Số điện thoại" value={phone} onChangeText={setPhone} style={input} keyboardType="phone-pad" maxLength={20} /></>}
     <Text>Email</Text><TextInput accessibilityLabel="Email" value={email} onChangeText={setEmail} autoCapitalize="none" keyboardType="email-address" autoComplete="email" style={input} maxLength={254} />
-    <Text>Mật khẩu</Text><TextInput accessibilityLabel="Mật khẩu" value={password} onChangeText={setPassword} secureTextEntry autoCapitalize="none" autoComplete={register ? 'new-password' : 'current-password'} style={input} maxLength={128} />
+    <Text>Mật khẩu</Text><TextInput accessibilityLabel="Mật khẩu" value={password} onChangeText={setPassword} secureTextEntry autoCapitalize="none" autoComplete={register ? 'new-password' : 'current-password'} style={input} maxLength={register ? 72 : 128} />
+    {register && <Text style={{marginBottom:16}}>Mật khẩu từ 8 ký tự, tối đa 72 byte UTF-8. Ký tự có dấu có thể chiếm nhiều byte.</Text>}
     <Button color="#047857" title={busy ? 'Đang xử lý...' : register ? 'Gửi đăng ký' : 'Đăng nhập'} disabled={busy} onPress={submit} />
     <View style={{height:16}} /><Button title={register ? 'Đã có tài khoản? Đăng nhập' : 'Đăng ký làm cleaner'} disabled={busy} onPress={() => {setRegister(!register);setError('');}} />
     <Text style={{marginTop:24,color:'#475569'}}>Hồ sơ cần được duyệt trước khi nhận việc. Khách trả tiền mặt trực tiếp sau ca.</Text>

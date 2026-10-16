@@ -85,6 +85,11 @@ does not test this native app's UI. Generated bundles are ignored by Git.
 
 ## Separate Git
 
+Authentication safeguards: login/signup display the API's throttling message and
+retry time. New-password inputs cap characters; the backend enforces 72 UTF-8
+bytes. Existing login passwords remain supported up to 128 characters.
+See ../backend/AUTH_RATE_LIMITS.md. Android export is not a device UI test.
+
 Suggested GitHub repository: `CleanMateCleanerMobile`. Create an empty repository
 and attach its URL as this folder's `origin`. Commit text:
 
