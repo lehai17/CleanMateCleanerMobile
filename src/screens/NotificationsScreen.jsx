@@ -52,7 +52,8 @@ export default function NotificationsScreen({ navigation }) {
         <Text>{new Date(item.createdAt).toLocaleString("vi-VN")} · {item.readAt ? "Đã đọc" : "Chưa đọc"}</Text>
         <Button title={item.target === "Profile" ? "Xem hồ sơ" : `Xem đơn CM${item.bookingId}`} onPress={() => {
           if (item.target === "Orders") { Alert.alert("Đơn khách hàng", "Thông báo này thuộc đơn khách hàng. Vui lòng mở web/app khách hàng để xem."); return; }
-          navigation.navigate(item.target === "Profile" || !user?.isCleaner ? "CleanerProfile" : "Calendar");
+          if (item.target === "Profile" || !user?.isCleaner) navigation.navigate("CleanerProfile");
+          else navigation.navigate("Jobs", {bookingId:Number.isSafeInteger(item.bookingId) && item.bookingId > 0 ? item.bookingId : null});
         }} />
         {!item.readAt && <Button title="Đánh dấu đã đọc" disabled={loading || busy} onPress={() => mark(item)} />}
       </View>} />

@@ -16,6 +16,11 @@ running it does not require the customer mobile/web repositories.
 - Dashboard from real job data, available work, assigned jobs, chronological schedule.
 - Accept, start, complete and confirm receipt of cash after the completed job.
 - Actual profile editing, logout and notification read state with pagination.
+- Search codes, customers and addresses without requiring Vietnamese accents.
+- Filter by status and date (YYYY-MM-DD, Vietnam time); clear filters to see all work.
+- The calendar shows accepted/in-progress work. Notification links open the exact
+  assigned job in the Jobs tab, including completed work, with an option to view all jobs.
+- Call the assigned customer and open a job address in Maps; unavailable apps show an error.
 - Server enforces booking ownership, schedule overlap and one active job.
 
 Customers pay cash directly to the cleaner after work. Displayed cash totals are
@@ -51,8 +56,8 @@ work. Existing approved cleaner accounts can sign in directly.
 
 ## Verification
 
-Verified 16 October 2026: 3 domain tests and the Android bundle export passed
-(1,308 modules). A physical-device UI test has not been performed.
+Verified 16 October 2026: 7 domain tests and the Android bundle export passed
+(1,310 modules). A physical-device UI test has not been performed.
 
 ```powershell
 npm test
@@ -75,7 +80,7 @@ Suggested GitHub repository: `CleanMateCleanerMobile`. Create an empty repositor
 and attach its URL as this folder's `origin`. Commit text:
 
 ```text
-Add dedicated cleaner mobile app with approval, jobs, and cash receipts
+Add cleaner job filters, contact shortcuts, and notification job navigation
 ```
 
 If Windows reports dubious ownership, run:
