@@ -14,8 +14,8 @@ import NotificationsScreen from './src/screens/NotificationsScreen';
 import CleanerJobList from './src/components/CleanerJobList';
 import { approved } from './src/domain';
 const Tabs = createBottomTabNavigator();
-function Jobs() { return <View style={{flex:1,padding:16}}><CleanerJobList /></View>; }
-function Calendar() { return <View style={{flex:1,padding:16}}><Text style={{marginBottom:12}}>Lịch được sắp theo thời gian. Xem trạng thái trước khi bắt đầu ca.</Text><CleanerJobList chronological /></View>; }
+function Jobs({route,navigation}) { return <View style={{flex:1,padding:16}}><CleanerJobList selectedBookingId={route.params?.bookingId} onClearSelection={() => navigation.setParams({bookingId:null})} /></View>; }
+function Calendar() { return <View style={{flex:1,padding:16}}><Text style={{marginBottom:12}}>Ca đã nhận / đang làm, sắp theo thời gian. Ngày theo giờ Việt Nam.</Text><CleanerJobList chronological /></View>; }
 function Workspace() {
   const {user} = useAuth(); const {unreadCount} = useNotifications();
   const icons = {Dashboard:'home-outline',FindJob:'search-outline',Jobs:'briefcase-outline',Calendar:'calendar-outline',Notifications:'notifications-outline',CleanerProfile:'person-outline'};
