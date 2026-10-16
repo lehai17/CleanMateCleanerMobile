@@ -1,3 +1,4 @@
+import SupportConversation from '../components/SupportConversation';
 import {useCallback,useEffect,useRef,useState} from 'react';
 import {Button,ScrollView,Text,TextInput,View} from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
@@ -30,7 +31,7 @@ export default function SupportScreen() {
     <Text>Mô tả (10–2000 ký tự)</Text><TextInput accessibilityLabel="Mô tả" multiline value={description} onChangeText={setDescription} maxLength={2000} editable={!busy} style={[input,{minHeight:100,textAlignVertical:'top'}]} />
     {message?<Text accessibilityRole="alert" style={{marginVertical:12}}>{message}</Text>:null}<Button title={busy?'Đang gửi...':'Gửi yêu cầu hỗ trợ'} disabled={busy} onPress={submit} />
     <Text style={{fontSize:20,fontWeight:'700',marginTop:28,marginBottom:12}}>Yêu cầu của tôi</Text><Button title="Tải lại hỗ trợ" disabled={loading} onPress={load} />{error?<Text accessibilityRole="alert">{error}</Text>:null}{loading&&<Text>Đang tải...</Text>}
-    {items.map(item=><View key={item.id} style={{backgroundColor:'white',padding:16,borderRadius:12,marginTop:12}}><Text style={{fontWeight:'700'}}>HT{item.id} · CM{item.bookingId}</Text><Text>{statuses[item.status]} · {categories[item.category]}</Text><Text style={{marginVertical:12}}>{item.description}</Text><Text>{item.response?`Phản hồi từ staff: ${item.response}`:'Nhân viên chưa phản hồi.'}</Text></View>)}
+    {items.map(item=><View key={item.id} style={{backgroundColor:'white',padding:16,borderRadius:12,marginTop:12}}><Text style={{fontWeight:'700'}}>HT{item.id} · CM{item.bookingId}</Text><Text>{statuses[item.status]} · {categories[item.category]}</Text><Text style={{marginVertical:12}}>{item.description}</Text><Text>{item.response?`Phản hồi từ staff: ${item.response}`:'Nhân viên chưa phản hồi.'}</Text><SupportConversation ticketId={item.id} onUpdated={load} /></View>)}
     {!loading&&!error&&!items.length&&<Text>Bạn chưa có yêu cầu hỗ trợ.</Text>}<Text style={{marginVertical:12}}>Trang {page} · {total} yêu cầu</Text><Button title="Trang trước" disabled={loading||page===1} onPress={()=>setPage(page-1)} /><Button title="Trang sau" disabled={loading||page*20>=total} onPress={()=>setPage(page+1)} />
   </ScrollView>;
 }
