@@ -41,9 +41,9 @@ function Workspace() {
 }
 function Root() {
   useCleanMateUi();
-  const {user,loading,restoreError,restore} = useAuth();
+  const {user,loading,restoreError,restore,logout,logoutFailed} = useAuth();
   if (loading) return <View style={{flex:1,alignItems:'center',justifyContent:'center'}}><ActivityIndicator /><Text>Đang kiểm tra tài khoản...</Text></View>;
-  if (restoreError) return <View style={{padding:32,marginTop:48}}><Text>{restoreError}</Text><Button title="Thử kết nối lại" onPress={restore} /></View>;
+  if (restoreError) return <View style={{padding:32,marginTop:48,gap:16}}><Text accessibilityRole="alert">{restoreError}</Text><Button title={logoutFailed?'Thử đăng xuất lại':'Thử kết nối lại'} onPress={restore} /><Button title="Đăng nhập bằng tài khoản khác" onPress={logout}/></View>;
   return user ? <NotificationProvider><Workspace /></NotificationProvider> : <AuthScreen />;
 }
 export default function App() {
