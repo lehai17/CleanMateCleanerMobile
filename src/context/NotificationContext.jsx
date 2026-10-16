@@ -1,3 +1,4 @@
+import { useUiPreferences as useCleanMateUi } from './../ui/Preferences';
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
 import { AppState } from "react-native";
 import { useAuth } from "./AuthContext";
@@ -5,6 +6,7 @@ import { getUnreadCount } from "../api/notifications";
 
 const Context = createContext({ unreadCount: null, refresh: () => {} });
 export function NotificationProvider({ children }) {
+  useCleanMateUi();
   const { user } = useAuth();
   const userId = user?.id;
   const [state, setState] = useState({ userId: null, count: null });

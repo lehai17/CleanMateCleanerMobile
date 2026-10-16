@@ -1,5 +1,6 @@
+import { Raw, useUiPreferences as useCleanMateUi } from './../ui/Preferences';
 import { useCallback, useRef, useState } from "react";
-import { View, Text, FlatList, Button, ActivityIndicator, Alert } from "react-native";
+import { View, Text, FlatList, Button, ActivityIndicator, Alert } from './../ui/Preferences';
 import { useFocusEffect } from "@react-navigation/native";
 import { getAvailableCleanerJobs, acceptCleanerJob } from "../api/jobs";
 import {filterJobs} from '../domain';
@@ -7,6 +8,7 @@ import JobFilters from '../components/JobFilters';
 import JobContacts from '../components/JobContacts';
 
 export default function FindJobScreen() {
+  useCleanMateUi();
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -48,10 +50,10 @@ export default function FindJobScreen() {
         data={visible} keyExtractor={(job) => String(job.id)} keyboardShouldPersistTaps="handled"
         ListEmptyComponent={<Text>Chưa có công việc khả dụng.</Text>}
         renderItem={({ item }) => <View style={{ backgroundColor: "#fff", padding: 16, marginTop: 12, borderRadius: 12 }}>
-          <Text style={{ fontWeight: "700" }}>CM{item.id} · {item.customerName}</Text>
+          <Text style={{ fontWeight: "700" }}>CM{item.id} · {<Raw>{item.customerName}</Raw>}</Text>
           <Text>{new Date(item.startTime).toLocaleString("vi-VN",{timeZone:"Asia/Ho_Chi_Minh"})} · {item.durationHours} giờ</Text>
-          <Text>{item.address}</Text>
-          <Text>{item.notes}</Text>
+          <Text>{<Raw>{item.address}</Raw>}</Text>
+          <Text>{<Raw>{item.notes}</Raw>}</Text>
           <JobContacts job={item} />
           <Text>{item.price.toLocaleString("vi-VN")} đ · {item.paymentMethod}</Text>
           <Button title={accepting === item.id ? "Đang nhận..." : "Nhận việc"}

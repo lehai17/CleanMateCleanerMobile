@@ -1,8 +1,11 @@
+import { useUiPreferences as useCleanMateUi } from './../ui/Preferences';
 import {useRef,useState} from 'react';
-import {Button,KeyboardAvoidingView,Platform,ScrollView,Text,TextInput} from 'react-native';
+import { Platform } from 'react-native';
+import { Button, KeyboardAvoidingView, ScrollView, Text, TextInput } from './../ui/Preferences';
 import {api} from '../api/axios';
 
 export default function RecoveryScreen({navigation,onBack}){
+  useCleanMateUi();
   const [email,setEmail]=useState(''),[code,setCode]=useState(''),[password,setPassword]=useState(''),[confirmation,setConfirmation]=useState(''),[busy,setBusy]=useState(false),[done,setDone]=useState(false),[message,setMessage]=useState(''),[error,setError]=useState('');
   const pending=useRef(false);
   const run=async action=>{if(pending.current)return;pending.current=true;setBusy(true);setError('');setMessage('');try{await action();}catch(e){setError(e?.response?.data?.message||'Không thể xử lý. Vui lòng thử lại.');}finally{pending.current=false;setBusy(false);}};

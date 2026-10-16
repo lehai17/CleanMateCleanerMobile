@@ -1,10 +1,13 @@
+import { Raw, useUiPreferences as useCleanMateUi } from './../ui/Preferences';
 import {useState,useEffect} from 'react';
-import {ScrollView,Text,TextInput,Button,View,KeyboardAvoidingView,Platform} from 'react-native';
+import { Platform } from 'react-native';
+import { ScrollView, Text, TextInput, Button, View, KeyboardAvoidingView } from './../ui/Preferences';
 import {api} from '../api/axios';
 import {meApi} from '../api/auth';
 import {useAuth} from '../context/AuthContext';
 import {approved} from '../domain';
 export default function ProfileScreen({navigation}) {
+  useCleanMateUi();
   const {user,refreshUser,logout} = useAuth();const p = user.cleanerProfile;
   const [form,setForm] = useState({}),[busy,setBusy] = useState(false),[message,setMessage] = useState('');
   useEffect(() => {setForm({fullName:user.fullName || '',phoneNumber:user.phoneNumber || '',city:p?.city || 'Ha Noi',addressText:p?.addressText || user.address || '',bio:p?.bio || ''});},[user]);
@@ -26,8 +29,8 @@ export default function ProfileScreen({navigation}) {
   };
   const status = {Pending:'Chờ duyệt',Approved:'Đã duyệt',NeedsInfo:'Cần bổ sung',Rejected:'Từ chối'}[p?.reviewStatus] || 'Chưa đăng ký';
   return <KeyboardAvoidingView style={{flex:1}} behavior={Platform.OS === 'ios' ? 'padding' : undefined}><ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={{padding:20,paddingBottom:40}}>
-    <Text style={{fontSize:24,fontWeight:'700',color:'#065f46'}}>Hồ sơ cộng tác viên</Text><Text style={{marginVertical:12}}>{user.email}</Text><Text>Trạng thái: {status}</Text>
-    {p?.reviewReason ? <Text style={{padding:12,color:'#9a3412'}}>{p.reviewReason}</Text> : null}
+    <Text style={{fontSize:24,fontWeight:'700',color:'#065f46'}}>Hồ sơ cộng tác viên</Text><Text style={{marginVertical:12}}>{<Raw>{user.email}</Raw>}</Text><Text>Trạng thái: {status}</Text>
+    {p?.reviewReason ? <Text style={{padding:12,color:'#9a3412'}}>{<Raw>{p.reviewReason}</Raw>}</Text> : null}
     <Button title="Tải lại trạng thái hồ sơ" onPress={refresh} disabled={busy} />
     <Button title="Đổi mật khẩu" onPress={()=>navigation.navigate('Security')} />
     {message ? <Text accessibilityRole="alert" style={{marginVertical:12}}>{message}</Text> : null}
