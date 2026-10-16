@@ -22,6 +22,8 @@ running it does not require the customer mobile/web repositories.
   assigned job in the Jobs tab, including completed work, with an option to view all jobs.
 - Call the assigned customer and open a job address in Maps; unavailable apps show an error.
 - Server enforces booking ownership, schedule overlap and one active job.
+- Profile → Hỗ trợ đơn hàng opens reports for your bookings. Submit a problem,
+  track its status and read the latest staff response; notifications open Support.
 
 Customers pay cash directly to the cleaner after work. Displayed cash totals are
 self-declarations, not app balances or amounts the platform owes the cleaner.
@@ -57,7 +59,7 @@ work. Existing approved cleaner accounts can sign in directly.
 ## Verification
 
 Verified 16 October 2026: 7 domain tests and the Android bundle export passed
-(1,310 modules). A physical-device UI test has not been performed.
+(1,314 modules). A physical-device UI test has not been performed.
 
 ```powershell
 npm test

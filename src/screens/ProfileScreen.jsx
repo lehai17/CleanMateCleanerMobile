@@ -4,7 +4,7 @@ import {api} from '../api/axios';
 import {meApi} from '../api/auth';
 import {useAuth} from '../context/AuthContext';
 import {approved} from '../domain';
-export default function ProfileScreen() {
+export default function ProfileScreen({navigation}) {
   const {user,refreshUser,logout} = useAuth();const p = user.cleanerProfile;
   const [form,setForm] = useState({}),[busy,setBusy] = useState(false),[message,setMessage] = useState('');
   useEffect(() => {setForm({fullName:user.fullName || '',phoneNumber:user.phoneNumber || '',city:p?.city || 'Ha Noi',addressText:p?.addressText || user.address || '',bio:p?.bio || ''});},[user]);
@@ -32,6 +32,6 @@ export default function ProfileScreen() {
     {message ? <Text accessibilityRole="alert" style={{marginVertical:12}}>{message}</Text> : null}
     {[['Họ tên','fullName',200],['Số điện thoại','phoneNumber',20],['Thành phố','city',200],['Địa chỉ','addressText',500],['Giới thiệu','bio',2000]].map(([label,key,max]) => <View key={key} style={{marginTop:16}}><Text>{label}</Text><TextInput accessibilityLabel={label} value={form[key] || ''} onChangeText={value => setForm(f => ({...f,[key]:value}))} editable={!busy && !pending} maxLength={max} multiline={key === 'bio'} keyboardType={key === 'phoneNumber' ? 'phone-pad' : 'default'} style={{backgroundColor:'white',borderWidth:1,borderColor:'#cbd5e1',borderRadius:12,padding:12,marginVertical:6}} /></View>)}
     <Button title={busy ? 'Đang xử lý...' : pending ? 'Đang chờ xét duyệt' : active ? 'Lưu hồ sơ' : p ? 'Gửi lại hồ sơ' : 'Gửi hồ sơ cleaner'} onPress={save} disabled={busy || pending} />
-    <Text style={{marginVertical:20}}>Giá dịch vụ do CleanMate cấu hình. Khách trả tiền mặt trực tiếp cho bạn sau ca.</Text><Button title="Đăng xuất" color="#b91c1c" onPress={logout} disabled={busy} />
+    <Text style={{marginVertical:20}}>Giá dịch vụ do CleanMate cấu hình. Khách trả tiền mặt trực tiếp cho bạn sau ca.</Text><Button title="Hỗ trợ đơn hàng" onPress={()=>navigation.navigate('Support')} /><Button title="Đăng xuất" color="#b91c1c" onPress={logout} disabled={busy} />
   </ScrollView></KeyboardAvoidingView>;
 }

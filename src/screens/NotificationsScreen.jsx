@@ -50,7 +50,8 @@ export default function NotificationsScreen({ navigation }) {
         <Text style={{ fontWeight: "700" }}>{item.title}</Text>
         <Text>{item.message}</Text>
         <Text>{new Date(item.createdAt).toLocaleString("vi-VN")} · {item.readAt ? "Đã đọc" : "Chưa đọc"}</Text>
-        <Button title={item.target === "Profile" ? "Xem hồ sơ" : `Xem đơn CM${item.bookingId}`} onPress={() => {
+        <Button title={item.target === "Support" ? "Xem hỗ trợ" : item.target === "Profile" ? "Xem hồ sơ" : `Xem đơn CM${item.bookingId}`} onPress={() => {
+          if (item.target === "Support") {navigation.navigate('Support');return;}
           if (item.target === "Orders") { Alert.alert("Đơn khách hàng", "Thông báo này thuộc đơn khách hàng. Vui lòng mở web/app khách hàng để xem."); return; }
           if (item.target === "Profile" || !user?.isCleaner) navigation.navigate("CleanerProfile");
           else navigation.navigate("Jobs", {bookingId:Number.isSafeInteger(item.bookingId) && item.bookingId > 0 ? item.bookingId : null});
