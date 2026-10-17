@@ -5,10 +5,10 @@ const path = require('node:path');
 const { spawnSync } = require('node:child_process');
 const root = path.resolve(__dirname, '..');
 const base = require('../app.json').expo;
-for (const variant of ['production', 'validation']) {
+for (const [variant, bundled] of [['production', false], ['validation', false], ['validation', true]]) {
   const result = spawnSync(process.execPath, [require.resolve('expo/bin/cli'), 'config', '--type', 'introspect', '--json'], {
     cwd: root, encoding: 'utf8', maxBuffer: 8 * 1024 * 1024,
-    env: { ...process.env, CLEANMATE_BUILD_VARIANT: variant, EXPO_PUBLIC_API_URL: 'http://10.0.2.2:15238', EXPO_NO_TELEMETRY: '1' },
+    env: { ...process.env, CLEANMATE_BUILD_VARIANT: variant, CLEANMATE_BUNDLE_VALIDATION: bundled ? '1' : '0', EXPO_PUBLIC_API_URL: 'http://10.0.2.2:15238', EXPO_NO_TELEMETRY: '1' },
   });
   if (result.status !== 0) throw new Error(result.stderr || 'Expo config failed');
   const config = JSON.parse(result.stdout), validation = variant === 'validation';
@@ -22,6 +22,8 @@ for (const variant of ['production', 'validation']) {
   const androidStyle = mods.android.strings.resources.string.find(item => item.$.name === 'expo_system_ui_user_interface_style');
   assert.equal(androidStyle._, 'automatic');
   assert.equal(config.extra.validationBuild, validation);
+  assert.equal(config.extra.apiUrl, 'http://10.0.2.2:15238');
+  assert.equal(config.extra.bundledValidation, bundled);
   if (validation) {
     const nativeSchemes = (application.activity || []).flatMap(activity => (activity['intent-filter'] || []).flatMap(filter => (filter.data || []).map(data => data.$['android:scheme'])));
     const iosSchemes = (mods.ios.infoPlist.CFBundleURLTypes || []).flatMap(type => type.CFBundleURLSchemes || []);
@@ -32,8 +34,8 @@ for (const variant of ['production', 'validation']) {
     }
   }
   fs.mkdirSync(path.join(root, '.expo'), { recursive: true });
-  fs.writeFileSync(path.join(root, '.expo', `native-config-${variant}.json`), result.stdout);
-  console.log(`${variant}: isolated identifiers, transport settings and system appearance verified`);
+  fs.writeFileSync(path.join(root, '.expo', `native-config-${variant}${bundled ? '-bundled' : ''}.json`), result.stdout);
+  console.log(`${variant}${bundled ? '-bundled' : ''}: identifiers, API, transport and appearance verified`);
 }
 for (const url of ['', 'https://example.com', 'http://10.0.2.2:5238']) {
   const result = spawnSync(process.execPath, ['-e', "require('./app.config.js')({config:require('./app.json').expo})"], {

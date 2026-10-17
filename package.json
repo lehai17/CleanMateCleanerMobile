@@ -11,7 +11,9 @@
     "export:android": "expo export --platform android --output-dir .test-export --max-workers 2",
     "check:native-config": "node scripts/check-native-config.cjs",
     "android:validation": "node scripts/run-native.cjs android validation",
-    "ios:validation": "node scripts/run-native.cjs ios validation"
+    "ios:validation": "node scripts/run-native.cjs ios validation",
+    "build:android:validation": "node scripts/build-validation-android.cjs",
+    "check:native-prebuild": "node scripts/check-native-prebuild.cjs"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.2",
